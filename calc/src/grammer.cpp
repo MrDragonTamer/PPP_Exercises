@@ -43,78 +43,93 @@ double statement() {
 }
 
 double expression() {
-    token op;
     
     double lval = term();
-    op = ts.get();
+    token op = ts.get();
 
-    switch(op.kind) {
-        case '+':
-            lval += term();
-            break;
-        case '-':
-            lval -= term();
-            break;
-        default:
-            ts.putback(op);
-            break;
+    while(true) {
+        switch(op.kind) {
+            case '+':
+                lval += term();
+                op = ts.get();
+                break;
+            case '-':
+                lval -= term();
+                op = ts.get();
+                break;
+            default:
+                ts.putback(op);
+                return lval;
+                break;
+        }
     }
-   return lval; 
 }
 
 double term() {
-    token op;
 
-    double lval = primary();
-    op = ts.get();
-
-    switch(op.kind) {
-        case '*':
-            lval *= primary();
-            break;
-        case '/':
-            {
-                double rval = primary();
-                if(rval == 0) {
-                    throw std::runtime_error("Divide By Zero Error");
-                }
-                lval /= rval;
+    double lval = factor();
+    token op = ts.get();
+    
+    while(true) {
+        switch(op.kind) {
+            case '*':
+                lval *= factor();
+                op = ts.get();
                 break;
-            }
-        case '%':
-            {
-                double d = primary();
-                if(d == 0) {
-                    throw std::runtime_error("Divide By Zero Error");
+            case '/':
+                {
+                    double rval = factor();
+                    if(rval == 0) {
+                        throw std::runtime_error("Divide By Zero Error");
+                    }
+                    lval /= rval;
+                    op = ts.get();
+                    break;
                 }
-                lval = fmod(lval, d);
+            case '%':
+                {
+                    double d = factor();
+                    if(d == 0) {
+                        throw std::runtime_error("Divide By Zero Error");
+                    }
+                    lval = fmod(lval, d);
+                    op = ts.get();
+                    break;
+                }
+            default:
+                ts.putback(op);
+                return lval;
                 break;
-            }
-        default:
-            ts.putback(op);
-            break;
+        }
     }
-    return lval;
+}
+
+double factor() {
+    double lval = primary();
+
+    token op = ts.get();
+    while(true) {
+        if(op.kind == '!') {
+           lval = factorial(lval);
+           op = ts.get();
+        }
+        else {
+            ts.putback(op);
+            return lval;
+        }
+    }
 }
 
 
 double primary() {
-    token t;
     
-    t = ts.get();
+    token t = ts.get();
 
     double result = 0;
 
     switch(t.kind) {
         case token::NUMBER:
             {
-                token lookAhead = ts.get();
-                if(lookAhead.kind == '!') {
-                    t.value = factorial(t.value);
-                }
-                else {
-                    ts.putback(lookAhead);
-                }
                 return t.value;
                 break;
             }
@@ -128,13 +143,6 @@ double primary() {
             if(t.kind != ')') {
                 throw std::runtime_error("Missing closing parathesis.");
             }
-            t = ts.get();
-            if(t.kind == '!') {
-                result = factorial(result);
-            }
-            else {
-                ts.putback(t);
-            }
             break;
         case '{':
             result = expression();
@@ -143,11 +151,30 @@ double primary() {
                 throw std::runtime_error("Missing closing parathesis.");
             }
             break;
+        case token::NAME:
+            if(is_declared(t.name)) {
+                return get_value(t.name);
+            }
+            ts.putback(t);
+            return func();
+            break;
         default:
             throw std::runtime_error("Invalid Syntax!");
             break;
     }
     return result;
+}
+
+double func() {
+    token op = ts.get();
+
+    if(op.kind != token::NAME) {
+        throw std::runtime_error("Attempting to call a function without knowing the name of the function!");
+    }
+    if(op.name == "sqrt") {
+        return sqrt(expression());
+    }
+    throw std::runtime_error(op.name + " is not a valid function!");
 }
 
 int factorial(int n) {

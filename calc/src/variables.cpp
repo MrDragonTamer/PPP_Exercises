@@ -10,7 +10,7 @@ double declaration() {
     //assumes we already saw the DECLARATION_KEYWORD
     
     token t = ts.get();
-    if(t.kind != token::VAR_NAME) {
+    if(t.kind != token::NAME) {
         throw std::runtime_error("Expected variable name after DECLARATION_KEYWORD");
     }
     
