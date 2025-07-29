@@ -1,0 +1,15 @@
+src/
+    - Code file (e.g. .cpp)
+include/
+    - header files (e.g. .h)
+libs/
+    - External Libraries That were downloaded from the internet (not installed on the system).  Can be source code or pre-compiled library files (e.g. .a .lib .so .dll)
+build/
+    - all things related to building the code.  This is to practice an "out-of-source build", which allows keep the source files untouched from building and you can just delete the build/ folder to clean the project.  Object files (.o .obj) Library files (that were compiled from source in /libs, downloaded precompiled library files go in /libs), the final executable and build system files like makefiles
+        NOTE: The script puts the makefile in the root directory because we don't know how to use CMake yet, usually something like CMake would go in the root dir but for now the makefile goes there
+tests/
+    - automated testing scripts
+tools/
+    - Utility scripts or programs used in devolopment that aren't part of the final product
+assets/
+    - Non-code resources needed at runtime (images, config files, 3D models, etc.)

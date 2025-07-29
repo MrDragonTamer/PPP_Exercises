@@ -1,0 +1,26 @@
+Permutation and Combination Calculator
+
+Program gets two whole numbers from user and then asks if user wants the Permutation or Combination.
+
+Program outputs what user selected.
+
+Program loops until user enters 'q'.
+
+//PSEUDO CODE
+
+int main() {
+    
+    PROMPT: "ENTER TWO NUMBERS OR Q TO QUIT: "
+    GET input
+    CHECK if input is Q
+        EXIT PROGRAM IF YES
+    CHECK if input is a number //check cin failbit if(!cin)
+        THROW an exception if NO
+    CHECK if second input is a number
+        THROW an exception if NO
+    PROMPT: "Permutation OR Combination (P/C)? "
+    CALCULATE
+    PRINT RESULT
+    GOTO BEGINNING
+
+}

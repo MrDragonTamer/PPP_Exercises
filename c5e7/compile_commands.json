@@ -1,0 +1,19 @@
+[
+ {
+  "directory": "/home/tyler/coding/cpp/PPP/c5e7",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-g",
+   "-Iinclude",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "build/obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ }
+]

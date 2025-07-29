@@ -1,0 +1,20 @@
+Calculator Syntax
+
+EXPRESSION:
+Term
+Expression + Term
+Expression - Term
+TERM:
+Primary
+Term * Primary
+Term / Primary
+Term % Primary
+PRIMARY:
+Number
+Number!
+( Expression )
+( Expression )!
++ Primary
+- Primary
+Number:
+double

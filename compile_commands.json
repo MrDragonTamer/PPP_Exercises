@@ -1,0 +1,34 @@
+[
+ {
+  "directory": "/home/tyler/coding/cpp/PPP/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "src/main.cpp",
+   "-o",
+   "build/obj/main.o"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/tyler/coding/cpp/PPP/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "src/tokenStream.cpp",
+   "-o",
+   "build/obj/tokenStream.o"
+  ],
+  "file": "src/tokenStream.cpp"
+ }
+]
