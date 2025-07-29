@@ -1,5 +1,19 @@
 Calculator Syntax
 
+
+CALCULATION:
+Statement
+Print
+Quit
+Calculation Statement
+
+STATEMENT:
+Declaration
+Expression
+
+DECLARATION:
+    "let" Name "=" Expression
+
 EXPRESSION:
 Term
 Expression + Term

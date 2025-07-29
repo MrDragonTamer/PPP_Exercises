@@ -5,38 +5,29 @@
 
 tokenStream ts;
 
+constexpr std::string prompt = ">";
+constexpr std::string answer = "=";
+
+
+//functions to seperate parsing grammer
+void calculate();
+void statement();
 double expression();
 double term();
 double primary();
+
+//functions related to handling variables
+
+//misc calculation helper functions
 int factorial(int n);
+
+
 
 int main() {
 
 try{ 
 
-    std::cout<<"Enter Expression: ";
-
-    token t;
-
-    while(true) {
-        
-        t = ts.get();
-        while(t.kind == ';') {
-            t = ts.get(); //eat ;
-        }
-        if (t.kind == 'q') {
-            break;
-        }
-
-        ts.putback(t);
-        
-        double result = expression();
-
-
-        std::cout<<"="<<result<<std::endl;
-
-    }
-
+    calculate();
 
 	return 0;
 }
@@ -49,6 +40,30 @@ catch(...) {
 }
 }
 
+void calculate() {
+//evaluate expressions in a loop until quit command is found
+while(std::cin) try{
+    if(!ts.isFull()) {
+        std::cout<<prompt;
+    }
+    
+    token t = ts.get();
+    while(t.kind == token::PRINT) {
+        t = ts.get(); //eat ;
+    }
+    if (t.kind == token::QUIT) {
+        break;
+    }
+    ts.putback(t);
+    
+    double result = expression();
+    std::cout<<answer<<result<<std::endl;
+}
+catch(std::exception &e) {
+    std::cerr<<e.what()<<std::endl;
+    ts.ignore(token::PRINT);
+}
+}
 
 double expression() {
     token op;
@@ -113,7 +128,7 @@ double primary() {
     double result = 0;
 
     switch(t.kind) {
-        case '8':
+        case token::NUMBER:
             {
                 token lookAhead = ts.get();
                 if(lookAhead.kind == '!') {

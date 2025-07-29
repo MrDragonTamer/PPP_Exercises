@@ -12,6 +12,26 @@ void tokenStream::putback(token t) {
 
 };
 
+bool tokenStream::isFull() {
+    return full;
+}
+
+void tokenStream::ignore(char c) {
+    //discard tokens and chars from tokenStream and cin until we find c
+    
+    if(full && c == buffer.kind) {
+        full = false;
+        return;
+    }
+
+    char ch = '\0';
+    while(std::cin>>ch) {
+        if(ch == c) {
+            return;
+        }
+    }
+}
+
 token tokenStream::get() {
     
     if(full) {
@@ -22,7 +42,7 @@ token tokenStream::get() {
     char x = '\0';
     std::cin>>x;
     switch (x) {
-        case ';': case 'q':
+        case token::PRINT: case token::QUIT:
         case '(': case ')': 
         case '{': case '}':
         case '*': case '/': case '+': case '-':
@@ -48,7 +68,7 @@ token tokenStream::get() {
             std::cin.putback(x);
             double t = 0;
             std::cin>>t;
-            return token{'8', t};
+            return token{token::NUMBER, t};
             break;
             }
         default:

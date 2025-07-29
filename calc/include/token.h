@@ -8,6 +8,12 @@ class token {
 		token(char k, double d) : kind{k}, value{d} {}
 		token(char k) : kind{k} {}
 		token() {}
+
+		enum type { 
+			NUMBER = '8',
+			QUIT = 'q',
+			PRINT = ';'
+		};
 };
 
 #endif
