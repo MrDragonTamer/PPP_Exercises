@@ -2,33 +2,54 @@ Calculator Syntax
 
 
 CALCULATION:
-Statement
-Print
-Quit
-Calculation Statement
+    Statement
+    Print
+    Quit
+    Calculation Statement
 
 STATEMENT:
-Declaration
-Expression
+    Declaration
+    Assignment
+    Expression
 
 DECLARATION:
-    "let" Name "=" Expression
+    "let" Var_Name "=" Expression
+ASSIGNMENT:
+    Var_Name "=" Expression
+
+VAR_NAME:
+    any string of letters or numbers starting with a letter
 
 EXPRESSION:
-Term
-Expression + Term
-Expression - Term
+    Term
+    Expression + Term
+    Expression - Term
 TERM:
-Primary
-Term * Primary
-Term / Primary
-Term % Primary
+    Factor
+    Term * Factor 
+    Term / Factor
+    Term % Factor
+
+FACTOR:
+    Primary
+    Primary! //factorials are the only funciton that is expressed as a suffix instead of a prefix.  So they are handled special.
+
 PRIMARY:
-Number
-Number!
-( Expression )
-( Expression )!
-+ Primary
-- Primary
+    Number
+    ( Expression )
+    + Primary //positive numbers
+    - Primary //negative numbers
+    Name
+
+NAME:
+    Var_Name
+    Function
+
+FUNCTION:
+    FunctionName "(" Expression ")"
+
+FunctionName:
+    "sqrt"
+
 Number:
-double
+    double

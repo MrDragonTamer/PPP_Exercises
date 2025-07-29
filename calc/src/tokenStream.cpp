@@ -1,6 +1,8 @@
 #include"../include/tokenStream.h"
 #include"../include/PPPheaders.h"
 
+constexpr std::string declaration_keyword = "let";
+
 void tokenStream::putback(token t) {
 	if(full) {
         throw std::runtime_error("Attempted to putback a token into a full TokenStream");
@@ -47,6 +49,7 @@ token tokenStream::get() {
         case '{': case '}':
         case '*': case '/': case '+': case '-':
         case '!': case '%':
+        case '=':
             return token{x};
             break;
 /*        case '-':
@@ -72,6 +75,18 @@ token tokenStream::get() {
             break;
             }
         default:
+            if(isalpha(x)) {
+                std::string str;
+                str += x;
+                while(std::cin.get(x) && (isalpha(x) || isdigit(x))) {
+                    str += x;
+                }
+                std::cin.putback(x);
+                if(str == declaration_keyword) {
+                    return token{token::DECLARATION_KEYWORD};
+                }
+                return token{token::VAR_NAME, str};
+            }
             throw std::runtime_error("Invalid Token!");
     }
 }
