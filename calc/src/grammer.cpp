@@ -36,6 +36,17 @@ double statement() {
     switch(t.kind) {
         case token::DECLARATION_KEYWORD:
             return declaration();
+            break;
+        case token::NAME:
+            if(is_declared(t.name)) {
+                ts.putback(t);
+                return assignment();
+            }
+            else{
+                ts.putback(t);
+                return expression();
+            }
+            break;
         default:
             ts.putback(t);
             return expression();
