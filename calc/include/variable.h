@@ -10,6 +10,16 @@ class variable {
 		double value;
 };
 
+class symbolMap {
+	public:
+		double define_var(variable v);
+		double set_value(variable v);
+		double get_value(variable v);
+		bool is_declared(variable v);
+	private:
+		std::vector<variable> varList;
+};
+
 extern tokenStream ts;
 extern std::vector<variable> varList;
 

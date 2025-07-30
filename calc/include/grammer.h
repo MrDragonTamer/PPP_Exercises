@@ -2,6 +2,7 @@
 #define GRAMMER
 #include"PPPheaders.h"
 #include"tokenStream.h"
+#include"math.h"
 
 //functions to seperate parsing grammer
 void calculate();
@@ -11,7 +12,6 @@ double term();
 double factor();
 double primary();
 double func();
-int factorial(int n); //helper function for primary  
 
 extern tokenStream ts;
 

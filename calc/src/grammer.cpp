@@ -182,9 +182,36 @@ double func() {
     if(op.kind != token::NAME) {
         throw std::runtime_error("Attempting to call a function without knowing the name of the function!");
     }
-    if(op.name == "sqrt") {
-        return sqrt(expression());
+    
+    std::string funcName = op.name;
+    op = ts.get();
+    if(op.kind != '(') {
+        ts.putback(op);
+        throw std::runtime_error("Missing '(' for function.");
     }
+    double value = 0;
+    if(funcName == "sqrt") {
+        value = sqrt(expression());
+    }
+    if(funcName == "pow") {
+        double a = expression();
+        op = ts.get();
+        if(op.kind != ',') {
+            ts.putback(op);
+            throw std::runtime_error("Expected pow(a,b); for pow function");
+        }
+        double b = expression();
+        value = pow(a, b);
+    }
+
+    op = ts.get();
+    if(op.kind != ')') {
+        ts.putback(op);
+        throw std::runtime_error("Missing ')' for function.");
+    }
+
+    return value;
+
     throw std::runtime_error(op.name + " is not a valid function!");
 }
 

@@ -25,6 +25,8 @@ void tokenStream::ignore(char c) {
         full = false;
         return;
     }
+    
+    full = false;
 
     char ch = '\0';
     while(std::cin>>ch) {
@@ -48,8 +50,8 @@ token tokenStream::get() {
         case '(': case ')': 
         case '{': case '}':
         case '*': case '/': case '+': case '-':
-        case '!': case '%':
-        case '=':
+        case '!': case '%': 
+        case '=': case ',':
             return token{x};
             break;
 /*        case '-':
@@ -85,7 +87,7 @@ token tokenStream::get() {
                 if(str == declaration_keyword) {
                     return token{token::DECLARATION_KEYWORD};
                 }
-                return token{token::VAR_NAME, str};
+                return token{token::NAME, str};
             }
             throw std::runtime_error("Invalid Token!");
     }
