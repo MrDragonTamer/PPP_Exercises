@@ -14,6 +14,8 @@ STATEMENT:
 
 DECLARATION:
     "let" Var_Name "=" Expression
+    "let" Var_Name "=" Expression as constant
+
 ASSIGNMENT:
     Var_Name "=" Expression
 

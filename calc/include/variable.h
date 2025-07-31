@@ -6,13 +6,23 @@
 
 class variable {
 	public:
-		std::string name;
-		double value;
+		double get_value() const;
+		double set_value(double x);
+		bool isConst() const;
+		std::string name() const;
+
+		variable(std::string str, double v, bool isConst) : var_name(str), value(v), constant(isConst) {}
+		variable(std::string str, double v) : var_name(str), value(v) {}
+		variable(std::string str) : var_name(str) {}
+	private:
+		std::string var_name;
+		double value = 0;
+		bool constant = false;
 };
 
 class symbolMap {
 	public:
-		double define_var(variable v);
+		double define(variable v);
 		double set_value(variable v);
 		double get_value(variable v);
 		bool is_declared(variable v);
@@ -21,13 +31,9 @@ class symbolMap {
 };
 
 extern tokenStream ts;
-extern std::vector<variable> varList;
+extern symbolMap vars;
 
 double declaration();
 double assignment();
-bool is_declared(std::string var_name);
-double define_var(std::string var_name, double value);
-double set_value(std::string var_name, double value);
-double get_value(std::string var_name);
 
 #endif

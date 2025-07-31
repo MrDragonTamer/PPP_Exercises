@@ -3,6 +3,7 @@
 #include"tokenStream.h"
 #include"grammer.h"
 #include"variable.h"
+#include"function.h"
 
 tokenStream ts;
 
@@ -10,17 +11,29 @@ tokenStream ts;
 void calculate() {
 //evaluate expressions in a loop until quit command is found
 while(std::cin) try{
-    if(!ts.isFull()) {
+
+    token t;
+    
+    if(ts.empty()) {
         std::cout<<prompt;
+    } else {
+        t = ts.get();
+        if(t.kind == token::PRINT) {
+            std::cout<<prompt;
+        }
+        ts.putback(t);
     }
     
-    token t = ts.get();
+    t = ts.get();
+
     while(t.kind == token::PRINT) {
         t = ts.get(); //eat ;
     }
+    
     if (t.kind == token::QUIT) {
         break;
     }
+   
     ts.putback(t);
     
     std::cout<<result<<statement()<<std::endl;
@@ -38,7 +51,7 @@ double statement() {
             return declaration();
             break;
         case token::NAME:
-            if(is_declared(t.name)) {
+            if(vars.is_declared(variable{t.name})) {
                 ts.putback(t);
                 return assignment();
             }
@@ -51,6 +64,51 @@ double statement() {
             ts.putback(t);
             return expression();
     }
+}
+
+double declaration() {
+    //handle variable declaration from grammer
+    //assumes we already saw the DECLARATION_KEYWORD
+    
+    token t = ts.get();
+    if(t.kind != token::NAME) {
+        throw std::runtime_error("Expected variable name after DECLARATION_KEYWORD");
+    }
+    
+    if(ts.get().kind != '=') {
+        throw std::runtime_error("Expected '=' after variable name");
+    }
+    
+    std::string name = t.name;
+
+    double value = expression();
+    t = ts.get();
+    if(t.name == "as") {
+        t = ts.get();
+        if(t.name == "constant") {
+            vars.define(variable{name, value, true});
+            return value;
+        }
+    }
+
+    ts.putback(t);
+    vars.define(variable{name, value, false});
+    return value;
+}
+
+double assignment() {
+    token t = ts.get();
+    if(t.kind != token::NAME) {
+        throw std::runtime_error("Expected variable name for assignment!");
+    }
+    token op = ts.get();
+    if(op.kind != '=') {
+        //expresion started with a defined variable but this isn't a assignment statement
+        ts.putback(t);
+        ts.putback(op);
+        return expression();
+    }
+    return vars.set_value(variable{t.name, expression()});
 }
 
 double expression() {
@@ -163,8 +221,8 @@ double primary() {
             }
             break;
         case token::NAME:
-            if(is_declared(t.name)) {
-                return get_value(t.name);
+            if(vars.is_declared(t.name)) {
+                return vars.get_value(t.name);
             }
             ts.putback(t);
             return func();
@@ -177,6 +235,7 @@ double primary() {
 }
 
 double func() {
+    //implement grammer of calling functions from calculator
     token op = ts.get();
 
     if(op.kind != token::NAME) {
@@ -189,20 +248,8 @@ double func() {
         ts.putback(op);
         throw std::runtime_error("Missing '(' for function.");
     }
-    double value = 0;
-    if(funcName == "sqrt") {
-        value = sqrt(expression());
-    }
-    if(funcName == "pow") {
-        double a = expression();
-        op = ts.get();
-        if(op.kind != ',') {
-            ts.putback(op);
-            throw std::runtime_error("Expected pow(a,b); for pow function");
-        }
-        double b = expression();
-        value = pow(a, b);
-    }
+
+    double value = call_func(funcName);
 
     op = ts.get();
     if(op.kind != ')') {
@@ -211,18 +258,4 @@ double func() {
     }
 
     return value;
-
-    throw std::runtime_error(op.name + " is not a valid function!");
-}
-
-int factorial(int n) {
-    if(n == 0) {
-        return 1;
-    };
-
-    for(int i = n - 1; i > 0; i--) {
-        n *= i;
-    }
-
-    return n;
 }

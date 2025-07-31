@@ -4,30 +4,27 @@
 constexpr std::string declaration_keyword = "let";
 
 void tokenStream::putback(token t) {
-	if(full) {
-        throw std::runtime_error("Attempted to putback a token into a full TokenStream");
-	}
-
-    full = true;
-
-    buffer = t;
+    
+    buffer.push(t);
 
 };
 
-bool tokenStream::isFull() {
-    return full;
+bool tokenStream::empty() {
+    //returns true if the buffer has contents
+    return buffer.empty();
 }
 
 void tokenStream::ignore(char c) {
     //discard tokens and chars from tokenStream and cin until we find c
     
-    if(full && c == buffer.kind) {
-        full = false;
-        return;
+    while(!buffer.empty()) {
+        token t = buffer.front();
+        buffer.pop();
+        if(t.kind == c) {
+            return;
+        }
     }
     
-    full = false;
-
     char ch = '\0';
     while(std::cin>>ch) {
         if(ch == c) {
@@ -38,9 +35,10 @@ void tokenStream::ignore(char c) {
 
 token tokenStream::get() {
     
-    if(full) {
-        full = false;
-        return buffer;
+    if(!buffer.empty()) {
+        token t = buffer.front();
+        buffer.pop();
+        return t;
     }
 
     char x = '\0';
