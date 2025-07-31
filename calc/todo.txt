@@ -1,0 +1,5 @@
+COMMENT CODE
+Add ln function and log(b, n) function (log base b of n) log_b(x) = log_c(x)/log_c(b)
+Add 'h' (help) command
+Have calculator print welcome prompt ("Calculator Vx.x 'h' for help, 'q' to quit)
+Add ability to get expression from command line
