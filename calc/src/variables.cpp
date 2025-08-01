@@ -24,8 +24,21 @@ bool variable::isConst() const{
     return constant;
 }
 
+bool reserved_name(std::string name) {
+    for(std::string s : funcNames) {
+        if(name == s) {
+            return true;
+        }
+    }
+    return false;
+}
+
 double symbolMap::define(variable v) {
     //store variable value after ensure new variable is unique
+    
+    if(reserved_name(v.name())) {
+        throw std::runtime_error(v.name() + " is a reserved name!");
+    }
     
     if(is_declared(v)) {
         std::string error = v.name() + " is already a defined variable!";

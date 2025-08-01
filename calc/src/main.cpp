@@ -1,12 +1,12 @@
 #include"PPPheaders.h"
 #include"grammer.h"
-#include"math.h"
+#include"init.h"
 
 int main() {
 
 try{ 
 
-    define_consts();
+    initialize();
     calculate();
 
 	return 0;

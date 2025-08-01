@@ -1,4 +1,1 @@
 KNOWN BUGS
-
-Starting an expression with a defined variable makes the calculator assume you're trying to assign a new value to it and throw an exception
-    WORKAROUND: prefix variable with +

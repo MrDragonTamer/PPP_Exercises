@@ -3,6 +3,7 @@
 
 #include"PPPheaders.h"
 #include"tokenStream.h"
+#include"function.h"
 
 class variable {
 	public:
@@ -35,5 +36,6 @@ extern symbolMap vars;
 
 double declaration();
 double assignment();
+bool reserved_name(std::string name);
 
 #endif

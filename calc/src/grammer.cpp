@@ -4,6 +4,7 @@
 #include"grammer.h"
 #include"variable.h"
 #include"function.h"
+#include"init.h"
 
 tokenStream ts;
 
@@ -29,12 +30,19 @@ while(std::cin) try{
     while(t.kind == token::PRINT) {
         t = ts.get(); //eat ;
     }
-    
-    if (t.kind == token::QUIT) {
+    if(t.kind == token::QUIT) {
+//        ts.putback(t);
         break;
     }
-   
-    ts.putback(t);
+    
+    if(t.kind == token::HELP) {
+        print_help();
+        std::cout<<std::endl;
+        return calculate();
+
+    } else {
+        ts.putback(t);
+    }
     
     std::cout<<result<<statement()<<std::endl;
 }

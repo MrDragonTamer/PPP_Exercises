@@ -4,6 +4,7 @@ Calculator Syntax
 CALCULATION:
     Statement
     Print
+    Help
     Quit
     Calculation Statement
 
@@ -20,7 +21,7 @@ ASSIGNMENT:
     Var_Name "=" Expression
 
 VAR_NAME:
-    any string of letters or numbers starting with a letter
+    any string of letters or numbers starting with a letter THAT ISN'T a FunctionName
 
 EXPRESSION:
     Term
@@ -49,9 +50,13 @@ NAME:
 
 FUNCTION:
     FunctionName "(" Expression ")"
+    FunctionName "(" Expression, Expression, ... ")"
 
 FunctionName:
     "sqrt"
+    "pow"
+    "ln"
+    "log"
 
 Number:
     double

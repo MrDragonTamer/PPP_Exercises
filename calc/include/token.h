@@ -18,6 +18,7 @@ class token {
 			NUMBER = '8',
 			QUIT = 'q',
 			PRINT = ';',
+			HELP = 'h',
 			NAME = 'a',
 			DECLARATION_KEYWORD = 'L'
 		};

@@ -44,7 +44,7 @@ token tokenStream::get() {
     char x = '\0';
     std::cin>>x;
     switch (x) {
-        case token::PRINT: case token::QUIT:
+        case token::PRINT: case token::QUIT: case token::HELP:
         case '(': case ')': 
         case '{': case '}':
         case '*': case '/': case '+': case '-':
