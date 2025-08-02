@@ -1,7 +1,7 @@
 #ifndef TOKEN_STREAM
 #define TOKEN_STREAM
 
-#include<queue>
+import std;
 #include"token.h"
 
 class tokenStream {
