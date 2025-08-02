@@ -1,5 +1,4 @@
-import std;
-import PPP;
+#include"PPPheaders.h"
 #include"grammer.h"
 #include"init.h"
 

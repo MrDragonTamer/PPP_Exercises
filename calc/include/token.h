@@ -1,7 +1,7 @@
 #ifndef TOKEN
 #define TOKEN
 
-import std;
+#include"PPPheaders.h"
 
 class token {
 	public:

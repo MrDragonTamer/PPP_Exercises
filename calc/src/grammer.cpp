@@ -1,3 +1,4 @@
+#include"PPPheaders.h"
 #include"token.h"
 #include"tokenStream.h"
 #include"grammer.h"
@@ -168,7 +169,7 @@ double term() {
                     if(d == 0) {
                         throw std::runtime_error("Divide By Zero Error");
                     }
-                    lval = std::fmod(lval, d);
+                    lval = fmod(lval, d);
                     op = ts.get();
                     break;
                 }

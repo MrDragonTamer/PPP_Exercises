@@ -1,6 +1,6 @@
 #ifndef GRAMMER
 #define GRAMMER
-import std;
+#include"PPPheaders.h"
 #include"tokenStream.h"
 #include"math.h"
 

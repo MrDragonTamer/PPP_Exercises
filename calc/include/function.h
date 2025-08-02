@@ -1,7 +1,9 @@
 #ifndef FUNCTION
 #define FUNCTION
 
-import std;
+#include<string>
+#include<vector>
+#include<cmath>
 #include"token.h"
 #include"tokenStream.h"
 

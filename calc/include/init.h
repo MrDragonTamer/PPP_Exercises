@@ -1,8 +1,8 @@
 #ifndef INITIALIZE
 #define INITIALIZE
 
-import std;
 #include"math.h"
+#include<iostream>
 
 void initialize();
 void print_welcome_message();

@@ -1,7 +1,7 @@
 #ifndef VARIABLE
 #define VARIABLE
 
-import std;
+#include"PPPheaders.h"
 #include"tokenStream.h"
 #include"function.h"
 

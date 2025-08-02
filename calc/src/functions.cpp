@@ -13,7 +13,7 @@ double call_func(std::string name) {
         if(args.size() != 1) {
             throw std::runtime_error("Incorrect number of arguments for function " + name);
         }
-        return std::sqrt(args[0]);
+        return sqrt(args[0]);
     }
 
     if(name == "pow") {
@@ -21,7 +21,7 @@ double call_func(std::string name) {
         if(args.size() != 2) {
             throw std::runtime_error("Incorrect number of arguments for function " + name);
         }
-        return std::pow(args[0], args[1]);
+        return pow(args[0], args[1]);
     }
 
     if(name == "ln") {

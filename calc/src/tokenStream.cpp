@@ -1,4 +1,5 @@
-#include"tokenStream.h"
+#include"../include/tokenStream.h"
+#include"../include/PPPheaders.h"
 
 constexpr std::string declaration_keyword = "let";
 
@@ -74,10 +75,10 @@ token tokenStream::get() {
             break;
             }
         default:
-            if(std::isalpha(x)) {
+            if(isalpha(x)) {
                 std::string str;
                 str += x;
-                while(std::cin.get(x) && (std::isalpha(x) || std::isdigit(x))) {
+                while(std::cin.get(x) && (isalpha(x) || isdigit(x))) {
                     str += x;
                 }
                 std::cin.putback(x);
