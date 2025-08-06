@@ -1,0 +1,4 @@
+Add error handling to book parser
+Implement Patron Parser
+Implement Library class from excercise
+Add comments
