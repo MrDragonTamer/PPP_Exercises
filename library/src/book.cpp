@@ -1,8 +1,8 @@
 #include"book.h"
 #include <chrono>
 
-Book::Book(std::string ISBN, std::string author, std::string title, std::chrono::year_month_day copyright)
-	:_author(author), _title(title)
+Book::Book(std::string ISBN, std::string author, std::string title, Genre genre, std::chrono::year_month_day copyright)
+	:_author(author), _title(title), _genre(genre)
 {
 	if(valid_ISBN(ISBN) && copyright.ok()) {
 		_ISBN = ISBN;
@@ -47,6 +47,9 @@ std::string Book::title() const {
 std::string Book::ISBN() const {
 	return _ISBN;
 }
+Book::Genre Book::genre() const {
+	return _genre;
+}
 std::chrono::year_month_day Book::copyrightDate() const {
 	return _copyright;
 }
@@ -66,10 +69,27 @@ std::string Book::ISBN(std::string newISBN) {
 	}
 	throw std::runtime_error("Invalid ISBN");
 }
+Book::Genre Book::genre(Book::Genre newGenre) {
+	_genre = newGenre;
+	return _genre;
+}
 std::chrono::year_month_day Book::copyrightDate(std::chrono::year_month_day newDate) {
 	if(newDate.ok()) {
 		_copyright = newDate;
 		return _copyright;
 	}
 	throw std::runtime_error("Invalid year_month_day for book");
+}
+
+
+std::ostream& operator<<(std::ostream& os, Book b) {
+	return os<<b.title()<<std::endl
+		<<b.author()<<std::endl
+		<<b.ISBN();
+}
+bool operator==(Book a, Book b) {
+	return (a.ISBN() == b.ISBN());
+}
+bool operator!=(Book a, Book b) {
+	return (a.ISBN() != b.ISBN());
 }
