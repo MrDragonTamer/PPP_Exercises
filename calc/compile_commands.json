@@ -1,9 +1,79 @@
 [
  {
-  "directory": "/home/tyler/coding/cpp/PPP/calc",
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
   "arguments": [
    "g++",
    "-std=c++23",
+   "-fmodules",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "-fmodule-only",
+   "src/modules/PPP.cxx"
+  ],
+  "file": "src/modules/PPP.cxx"
+ },
+ {
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-fmodules",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "src/functions.cpp",
+   "-o",
+   "build/obj/functions.o"
+  ],
+  "file": "src/functions.cpp"
+ },
+ {
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-fmodules",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "src/grammer.cpp",
+   "-o",
+   "build/obj/grammer.o"
+  ],
+  "file": "src/grammer.cpp"
+ },
+ {
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-fmodules",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "src/init.cpp",
+   "-o",
+   "build/obj/init.o"
+  ],
+  "file": "src/init.cpp"
+ },
+ {
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-fmodules",
+   "-fimplicit-modules",
+   "=fimplicit-module-maps",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -16,10 +86,28 @@
   "file": "src/main.cpp"
  },
  {
-  "directory": "/home/tyler/coding/cpp/PPP/calc",
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
   "arguments": [
    "g++",
    "-std=c++23",
+   "-fmodules",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "src/math.cpp",
+   "-o",
+   "build/obj/math.o"
+  ],
+  "file": "src/math.cpp"
+ },
+ {
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-fmodules",
    "-Wall",
    "-Wextra",
    "-Werror",
@@ -30,5 +118,22 @@
    "build/obj/tokenStream.o"
   ],
   "file": "src/tokenStream.cpp"
+ },
+ {
+  "directory": "/home/tyler/coding/cpp/PPP_Exercises/calc",
+  "arguments": [
+   "g++",
+   "-std=c++23",
+   "-fmodules",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-Iinclude",
+   "-c",
+   "src/variables.cpp",
+   "-o",
+   "build/obj/variables.o"
+  ],
+  "file": "src/variables.cpp"
  }
 ]
