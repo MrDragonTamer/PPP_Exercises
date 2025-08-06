@@ -11,6 +11,7 @@ struct field{
 };
 
 void parser(std::istream& is, std::vector<Book>& b, std::vector<Patron>& p);
+void parseFields(std::istream& is, std::vector<field>& fields);
 Book book_parser(std::istream& is);
 Book book_creator(const std::vector<field>& v);
 Book::Genre genreExtractor(const std::string& str);

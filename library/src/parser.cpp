@@ -1,5 +1,6 @@
 #include"parser.h"
 #include <chrono>
+#include <exception>
 
 void parser(std::istream& is, std::vector<Book>& b, std::vector<Patron>& p) {
 	//read json file that is is pointed at until EOF, create Book and Patron objects as we parse and put them on a vector that is passed by reference
@@ -28,10 +29,26 @@ void parser(std::istream& is, std::vector<Book>& b, std::vector<Patron>& p) {
 		}
 
 		is>>s;
-		if(s == bookField) {
-			b.push_back(book_parser(is));
-		} if(s == patronField) {
-			p.push_back(patron_parser(is));
+		try{
+			if(s == bookField) {
+				b.push_back(book_parser(is));
+			} if(s == patronField) {
+				p.push_back(patron_parser(is));
+			}
+		}catch(std::exception &e) {
+			if(is.bad()) {
+				throw std::runtime_error("Input Stream 'is' went to bad state.  Giving up!");
+			}
+			is.clear();
+			char c = '\0';
+			while(is && (c != ']' && c != '}')) {
+					c = is.get();
+			}
+			if(c == '}') {
+				is.unget();
+			} else {
+				return;
+			}
 		}
 
 		is>>c;  //eats }
@@ -41,7 +58,13 @@ void parser(std::istream& is, std::vector<Book>& b, std::vector<Patron>& p) {
 }
 
 Book book_parser(std::istream& is) {
+
 	std::vector<field> fields;
+	parseFields(is, fields);
+	return book_creator(fields);
+}
+
+void parseFields(std::istream& is, std::vector<field>& fields) {
 	do{
 		char c;
 		field a;
@@ -51,7 +74,9 @@ Book book_parser(std::istream& is) {
 			throw std::runtime_error("Expected ':' after field name");
 		}
 		is>>std::quoted(a.value);
-		is.get(); //eats the , or newline character
+		if(is.peek() == ',') {
+			is.get(); //eat
+		}
 		do{
 			c = is.get(); //eat whitespace
 		}while(std::isspace(c));
@@ -61,8 +86,6 @@ Book book_parser(std::istream& is) {
 		}
 		fields.push_back(a);
 	}while(is && is.peek() != '}');
-
-	return book_creator(fields);
 }
 
 Book book_creator(const std::vector<field>& v) {
@@ -127,5 +150,35 @@ Book::Genre genreExtractor(const std::string &str) {
 }
 
 Patron patron_parser(std::istream& is) {
-
+	std::vector<field> fields;
+	parseFields(is, fields);
+	return patron_creator(fields);
 }
+
+Patron patron_creator(const std::vector<field>& v) {
+	constexpr int PATRON_FIELD_SIZE = 3;
+
+	if(v.size() != PATRON_FIELD_SIZE) {
+		throw std::runtime_error("Expected 3 fields to fully define a patron but got a different number!");
+	}
+	
+	std::string name;
+	double bal = 0;
+	int id = 0;
+
+	for(field f : v) {
+		if(f.name == "ID") {
+			f.value.pop_back(); //erase the trailing ,
+			id = std::stoi(f.value);
+		}
+		if(f.name == "bal") {
+			f.value.erase(0, 1); //erase the $
+			bal = std::stod(f.value);
+		}
+		if(f.name == "name") {
+			name = f.value;
+		}
+	}
+	return Patron{name, id, bal};
+}
+

@@ -11,6 +11,7 @@ class Patron{
 		long ID(long newID);
 		double fee(double newFee);
 
+		Patron(std::string name, long id, double fee) : _name(name), _id(id), _fee(fee) {}
 	private:
 		std::string _name;
 		long _id;

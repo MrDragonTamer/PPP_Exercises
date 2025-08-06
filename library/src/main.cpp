@@ -10,10 +10,16 @@
 #include"parser.h"
 
 int main() {
-	std::ifstream ifs{"./assets/books.json"};
+	std::ifstream books{"./assets/books.json"};
+	std::ifstream patrons{"./assets/patrons.json"};
+	if(!books || !patrons) {
+		throw std::runtime_error("Unable to open ifstream");
+	}
 	std::vector<Book> a;
 	std::vector<Patron> b;
-	parser(ifs, a, b);
+	parser(books, a, b);
+	parser(patrons, a, b);
 	std::cout<<a[0]<<"\n"<<a.size()<<std::endl;
+	std::cout<<b.size()<<std::endl;
 	return 0;
 }
