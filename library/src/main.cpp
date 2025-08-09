@@ -17,8 +17,8 @@ int main() {
 	}
 	std::vector<Book> a;
 	std::vector<Patron> b;
-	parser(books, a, b);
-	parser(patrons, a, b);
+	parser(books, a);
+	parser(patrons, b);
 	std::cout<<a[0]<<"\n"<<a.size()<<std::endl;
 	std::cout<<b.size()<<std::endl;
 	return 0;

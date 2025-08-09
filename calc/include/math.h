@@ -3,8 +3,8 @@
 #include"variable.h"
 
 
-int factorial(int n);
-void define_consts();
+long long factorial(long long n);
+void define_vars();
 
 extern symbolMap vars;
 

@@ -10,8 +10,10 @@ struct field{
 	std::string value;
 };
 
-void parser(std::istream& is, std::vector<Book>& b, std::vector<Patron>& p);
+void parser(std::istream& is, std::vector<Book>& v);
+void parser(std::istream& is, std::vector<Patron>& v);
 void parseFields(std::istream& is, std::vector<field>& fields);
+void getUniqueFields(std::vector<field>& v);
 Book book_parser(std::istream& is);
 Book book_creator(const std::vector<field>& v);
 Book::Genre genreExtractor(const std::string& str);

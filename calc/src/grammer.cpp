@@ -43,8 +43,9 @@ while(std::cin) try{
     } else {
         ts.putback(t);
     }
-    
-    std::cout<<result<<statement()<<std::endl;
+    double ans = statement();
+    vars.set_value(variable{"ans", ans});
+    std::cout<<result<<ans<<std::endl;
 }
 catch(std::exception &e) {
     std::cerr<<e.what()<<std::endl;

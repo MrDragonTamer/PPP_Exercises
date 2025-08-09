@@ -5,7 +5,7 @@ INC_DIR := include
 OBJ_DIR := build/obj
 BIN_DIR := build/bin
 CC := g++
-CFLAGS := -std=c++23 -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS := -std=c++23 -g -Wall -Wextra -Werror -I$(INC_DIR)
 
 # Find all .cpp files in src/
 SRCS := $(wildcard $(SRC_DIR)/*.cpp)

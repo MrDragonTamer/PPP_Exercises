@@ -1,7 +1,7 @@
 #include"init.h"
 
 void initialize() {
-    define_consts();
+    define_vars();
     print_welcome_message();
     return;
 }
